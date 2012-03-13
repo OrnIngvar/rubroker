@@ -1,0 +1,24 @@
+h1 ru
+p Welcome to ruBroker, a stock based game
+
+h3 Stocks
+form(data-bind='submit: buyStock')
+  | Buy stock:
+  input(data-bind='value: newStockText', placeholder='What stock do you wanna buy?')
+  button(type='submit') Buy
+ul(data-bind='foreach: stocks, visible: stocks().length > 0')
+  li
+    input(type='checkbox', data-bind='checked: isOwned')
+    input(data-bind='value: name, disable: isOwned')
+    a(href='#', data-bind='click: $parent.sellStock') Delete
+| You have
+b(data-bind='text: ownedStocks().length')  
+|  stock(s)
+span(data-bind='visible: ownedStocks().length == 0')  - it's time to start buying!
+button(data-bind='click: save') Save
+
+#messages
+  input#text-input(type='text')
+  input#send-button(type='button', value='Send')
+
+script(type='text/javascript', src='/javascripts/rubroker.js')
