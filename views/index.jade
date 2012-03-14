@@ -9,7 +9,8 @@ ul(data-bind='foreach: stocks, visible: stocks().length > 0')
     span(data-bind='text: name')
     |  Price:
     span(data-bind='text: price')
-
+    input#text-input(type='text', placeholder='Amount?')
+    input#buy-button(type='button', data-bind='click: $parent.buyStock', value='Buy')
 | You have
 b(data-bind='text: ownedStocks().length')  
 |  stock(s) and
@@ -22,7 +23,8 @@ ul(data-bind='foreach: stocks, visible: stocks().length > 0')
     span(data-bind='text: name')
     |  Price:
     span(data-bind='text: price')
-
+    |  Amount:
+    span(data-bind='text: 'visible: ownedStocks().length')
 #messages
   input#text-input(type='text')
   input#send-button(type='button', value='Send')
