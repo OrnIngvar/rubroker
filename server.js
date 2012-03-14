@@ -41,6 +41,7 @@ everyone.disconnected(function(){
 });
 
 everyone.now.distributeMessage = function(message){everyone.now.receiveMessage(this.now.name, message);};
+everyone.now.updateStockPrice = function(stock){everyone.now.recieveNewStockPrice(stock);};
 
 // Routes
 app.get("/", function(req, res){
@@ -56,9 +57,9 @@ app.get("/stocks", function(req, res){
     // Normally, the would probably come from a database, but we can cheat:
 
     var stocks = [
-        { name: 'CRM', price: '45' },
-        { name: 'MSFT', price: '25' },
-        { name: 'ORCL', price: '15' }
+        { name: 'CRM', price: '45', numowned: '0', isOwned: false },
+        { name: 'MSFT', price: '25', numowned: '0', isOwned: false },
+        { name: 'ORCL', price: '15', numowned: '0', isOwned: false }
     ];
 
     // Since the request is for a JSON representation of the people, we
@@ -70,17 +71,10 @@ app.get("/stocks", function(req, res){
     //  of people JSON back to the browser in response to this request:
     console.log('stockJSON ', stockJSON);
     res.send(stockJSON);
-    redis_client.rpush('stocks', stocks);
-    console.log( 'redis push ', redis_client.info('stocks', stocks) );
-
-    var redis_stocks = redis_client.get('stocks');
-    console.log( 'stocks ', redis_client.get('stocks'));
-//    res.send(redis_stocks);
 });
 
 //TODO: Post operation
 app.post('/stocks', function(req, res){
-    redis_client.rpush('stocks', reg.stocks);
     console.log('user ', req.body.user);
     res.redirect('back');
 });
