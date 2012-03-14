@@ -2,6 +2,7 @@
     function Stock(data) {
         this.name = ko.observable(data.name);
         this.price = ko.observable(data.price);
+        this.numowned = ko.observable(data.numowned);
         this.isOwned = ko.observable(data.isOwned);
     }
 
@@ -11,15 +12,16 @@
         self.stocks = ko.observableArray([]);
         self.stocksOwned = ko.observableArray([]);
         self.credit = 1000;
-        self.ownedStocks = ko.computed(function () {
-            return ko.utils.arrayFilter(self.stocks(), function (stock) {
-                return stock.isOwned()
-            });
-        });
+        self.numBought = ko.observable();
 
         // Operations
         self.buyStock = function (stock) {
+            console.log('num ' + self.numBought());
+
+            stock.numowned(self.numBought());
+
             self.stocksOwned.push(stock);
+            self.numBought("");
         };
         self.sellStock = function (stock) {
             self.stocksOwned.remove(stock)
@@ -45,8 +47,9 @@
              */
         };
     }
-
-    ko.applyBindings(new StockListViewModel());
+    var stockApp = new StockListViewModel();
+    ko.applyBindings(stockApp);
+//    stockApp.stocks.push(new Stock())
 
     now.name = prompt("What's your name?", "");
 
