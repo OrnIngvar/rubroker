@@ -18,9 +18,8 @@
         });
 
         // Operations
-        self.buyStock = function () {
-            self.stocks.push(new Stock({ name:this.newStockText() }));
-            self.newStockText("");
+        self.buyStock = function (stock) {
+            self.stocks.push(stock);
         };
         self.sellStock = function (stock) {
             self.stocks.remove(stock)
@@ -56,7 +55,7 @@
         $("#messages").append("<br>" + name + ": " + message);
     }
 
-    $("#send-button").click(function () {
+    $("#buy-button").click(function () {
         now.distributeMessage($("#text-input").val());
         $("#text-input").val("");
     });
