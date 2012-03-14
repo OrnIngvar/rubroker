@@ -17,7 +17,7 @@ b(data-bind='text: ownedStocks().length')  
 b(data-bind='text: credit')
 |  credit
 span(data-bind='visible: ownedStocks().length == 0')  - it's time to start buying!
-ul(data-bind='foreach: stocks, visible: stocks().length > 0')
+ul(data-bind='foreach: stocksOwned, visible: stocksOwned().length > 0')
   li
     | Name:
     span(data-bind='text: name')

@@ -9,7 +9,7 @@
         // Data
         var self = this;
         self.stocks = ko.observableArray([]);
-        self.newStockText = ko.observable();
+        self.stocksOwned = ko.observableArray([]);
         self.credit = 1000;
         self.ownedStocks = ko.computed(function () {
             return ko.utils.arrayFilter(self.stocks(), function (stock) {
@@ -19,10 +19,10 @@
 
         // Operations
         self.buyStock = function (stock) {
-            self.stocks.push(stock);
+            self.stocksOwned.push(stock);
         };
         self.sellStock = function (stock) {
-            self.stocks.remove(stock)
+            self.stocksOwned.remove(stock)
         };
 
         // Load initial state from server, convert it to Stock instances, then populate self.stocks
