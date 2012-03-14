@@ -10,6 +10,7 @@
         var self = this;
         self.stocks = ko.observableArray([]);
         self.newStockText = ko.observable();
+        self.credit = 1000;
         self.ownedStocks = ko.computed(function () {
             return ko.utils.arrayFilter(self.stocks(), function (stock) {
                 return stock.isOwned()
@@ -49,6 +50,8 @@
     ko.applyBindings(new StockListViewModel());
 
     now.name = prompt("What's your name?", "");
+
+
     now.receiveMessage = function (name, message) {
         $("#messages").append("<br>" + name + ": " + message);
     }
