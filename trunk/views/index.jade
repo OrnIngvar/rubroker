@@ -9,7 +9,7 @@ ul(data-bind='foreach: stocks, visible: stocks().length > 0')
     span(data-bind='text: name')
     |  Price:
     span(data-bind='text: price')
-    input#text-input(type='text', data-bind='value: $parent.numBought', placeholder='Amount?')
+    input#text-input(type='text', data-bind='value: numowned')
     input#buy-button(type='button', data-bind='click: $parent.buyStock', value='Buy')
 | You have
 b(data-bind='text: stocksOwned().length')  
