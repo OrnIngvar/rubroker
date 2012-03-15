@@ -16,11 +16,17 @@
 
         // Operations
         self.buyStock = function (stock) {
-            console.log('num ' + self.numBought());
+            //console.log('num ' + self.numowned());
 
-            stock.numowned(self.numBought());
-
-            self.stocksOwned.push(stock);
+            var result = self.stocksOwned.indexOf(stock);
+            if (result > -1){
+                var prevStock = self.stocksOwned()[result];
+                //prevStock.numowned(self.numBought + prevStock.numBought)
+                //stock.numowned(stock + self.numowned);
+            } else {
+                //stock.numowned(self.numowned());
+                self.stocksOwned.push(stock);
+            }
             self.numBought("");
         };
         self.sellStock = function (stock) {
