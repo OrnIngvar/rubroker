@@ -57,9 +57,9 @@ app.get("/stocks", function(req, res){
     // Normally, the would probably come from a database, but we can cheat:
 
     var stocks = [
-        { name: 'CRM', price: '45', numowned: '0', isOwned: false },
-        { name: 'MSFT', price: '25', numowned: '0', isOwned: false },
-        { name: 'ORCL', price: '15', numowned: '0', isOwned: false }
+        { name: 'CRM', price: '45', numowned: 0, isOwned: false },
+        { name: 'MSFT', price: '25', numowned: 0, isOwned: false },
+        { name: 'ORCL', price: '15', numowned: 0, isOwned: false }
     ];
 
     // Since the request is for a JSON representation of the people, we
