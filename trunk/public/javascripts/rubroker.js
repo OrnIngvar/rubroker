@@ -105,5 +105,12 @@
             console.log(item.price());
         });
     };
+    now.recieveFinalScore = function(score) {
+        now.getFinalScore(stockApp.sumTotal() + stockApp.credit());
+    };
+
+    now.recieveWinner = function(winner){
+        $('#winner').html("<br>" + "the winner is : " + winner);
+    }
 
 })();
