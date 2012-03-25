@@ -29,7 +29,7 @@
             var oldPrice = parseInt(stock.price());
             var newCredit = self.credit() - (numBought * oldPrice);
             var newPrice = oldPrice * ( 1 + (Math.pow(numBought,2)/100));
-            if (self.credit() >= newPrice) {
+            if (newCredit >= 0) {
                 //stock.price(newPrice);
                 self.credit(newCredit);
                 now.updateStockPrice(stock.name(), newPrice);

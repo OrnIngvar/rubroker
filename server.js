@@ -1,5 +1,4 @@
-var express = require('express')
-    ,redis_client = require('redis-client').createClient();
+var express = require('express');
 var _ = require('underscore')._
 var fs = require('fs');
 
@@ -8,10 +7,6 @@ var pub = __dirname + '/public';
 var app = module.exports = express.createServer();
 
 var everyone = require('now').initialize(app);
-
-redis_client.on("error", function (err) {
-    console.log("error event - " + redis_client.host + ":" + redis_client.port + " - " + err);
-});
 
 // Configuration
 app.configure(function(){
