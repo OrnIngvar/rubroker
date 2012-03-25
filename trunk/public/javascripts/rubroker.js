@@ -30,8 +30,9 @@
             var newCredit = self.credit() - (numBought * oldPrice);
             var newPrice = oldPrice * ( 1 + (Math.pow(numBought,2)/100));
             if (self.credit() >= newPrice) {
-                stock.price(newPrice);
+                //stock.price(newPrice);
                 self.credit(newCredit);
+                now.updateStockPrice(stock.name(), newPrice);
                 stock.numowned(prevNumowned + numBought);
                 var result = self.stocksOwned.indexOf(stock);
                 if (result == -1){
@@ -87,10 +88,19 @@
     }
     var stockApp = new StockListViewModel();
     ko.applyBindings(stockApp);
-//    stockApp.stocks.push(new Stock())
 
     now.name = prompt("What's your name?", "");
 
+    now.recieveNewStockPrice = function (name, price) {
+        console.log('name ' + name + 'price ' + price);
+        ko.utils.arrayForEach(stockApp.stocks(), function(item){
+            if (item.name() == name) {
+                item.price(price);
+            }
+            console.log(item.name());
+            console.log(item.price());
+        });
+    }
 
     now.receiveMessage = function (name, message) {
         $("#messages").append("<br>" + name + ": " + message);

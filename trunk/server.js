@@ -41,7 +41,7 @@ everyone.disconnected(function(){
 });
 
 everyone.now.distributeMessage = function(message){everyone.now.receiveMessage(this.now.name, message);};
-everyone.now.updateStockPrice = function(stock){everyone.now.recieveNewStockPrice(stock);};
+everyone.now.updateStockPrice = function(name, price){everyone.now.recieveNewStockPrice(name, price);};
 everyone.now.distributeTimer = function(timer){everyone.now.recieveTimer(timer);};
 
 
