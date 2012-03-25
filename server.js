@@ -55,6 +55,37 @@ everyone.now.updateStockPrice = function(name, price){
 };
 everyone.now.distributeTimer = function(timer){everyone.now.recieveTimer(timer);};
 
+everyone.now.sendEndOfGame = function(score){
+    everyone.now.recieveFinalScore(score);
+};
+
+var scor = {};
+everyone.now.getFinalScore = function(score){
+    var name = this.now.name;
+    scor[name] = score;
+};
+
+everyone.now.sendWinner = function(winner){
+    everyone.now.recieveWinner(winner);
+};
+
+function find_winner(){
+    console.log('scor ', scor);
+    var tmpScore = 0;
+    var player = '';
+
+        // show the values stored
+    for (var k in scor) {
+        if(scor[k] > tmpScore){
+            player = k;
+            tmpScore = scor[k];
+        }
+    }
+    console.log('winner is ' + player);
+    everyone.now.sendWinner(player);
+    clearInterval(winner);
+}
+var winner = setInterval(find_winner,370000);
 
 var future = +new Date()/1000 + 3600;
 var time;
@@ -80,6 +111,7 @@ function time_loop() {
         //Stop the timer when it goes down to zero
         clearInterval(timer);
         //TODO : Gather all player sumTotals and compare
+        everyone.now.sendEndOfGame('0');
     }else{
         everyone.now.distributeTimer(time);
     }

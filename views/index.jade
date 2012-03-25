@@ -1,4 +1,4 @@
-h1 ru
+h1 ruBroker
 p Welcome to ruBroker, a stock based game
 p Time left
 #timer
@@ -34,6 +34,7 @@ ul(data-bind='foreach: stocksOwned, visible: stocksOwned().length > 0')
     input#sell-button(type='button', data-bind='click: $parent.sellStock', value='Sell')
 span(data-bind='visible: stocksOwned().length > 0') Sum total:
 span(data-bind='text: sumTotal')
+#winner
 h3 Chat
 #messages
   input#msg-input(type='text')
