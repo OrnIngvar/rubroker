@@ -41,7 +41,14 @@ everyone.disconnected(function(){
 });
 
 everyone.now.distributeMessage = function(message){everyone.now.receiveMessage(this.now.name, message);};
-everyone.now.updateStockPrice = function(name, price){everyone.now.recieveNewStockPrice(name, price);};
+everyone.now.updateStockPrice = function(name, price){
+    for(var i=0;i<stocks.length;i++){
+        if (stocks[i].name === name){
+            stocks[i].price = price;
+        }
+    }
+    everyone.now.recieveNewStockPrice(name, price);
+};
 everyone.now.distributeTimer = function(timer){everyone.now.recieveTimer(timer);};
 
 
@@ -69,6 +76,11 @@ function time_loop() {
 }
 var timer = setInterval(time_loop, 1000);
 
+var stocks = [
+    { name: 'CRM', price: '45', numowned: 0, isOwned: false },
+    { name: 'MSFT', price: '25', numowned: 0, isOwned: false },
+    { name: 'ORCL', price: '15', numowned: 0, isOwned: false }
+];
 
 // Routes
 app.get("/", function(req, res){
@@ -80,14 +92,6 @@ app.get("/stocks", function(req, res){
     // We want to set the content-type header so that the browser understands
     //  the content of the response.
     res.contentType('application/json');
-
-    // Normally, the would probably come from a database, but we can cheat:
-
-    var stocks = [
-        { name: 'CRM', price: '45', numowned: 0, isOwned: false },
-        { name: 'MSFT', price: '25', numowned: 0, isOwned: false },
-        { name: 'ORCL', price: '15', numowned: 0, isOwned: false }
-    ];
 
     // Since the request is for a JSON representation of the people, we
     //  should JSON serialize them. The built-in JSON.stringify() function
