@@ -42,10 +42,37 @@ everyone.disconnected(function(){
 
 everyone.now.distributeMessage = function(message){everyone.now.receiveMessage(this.now.name, message);};
 everyone.now.updateStockPrice = function(stock){everyone.now.recieveNewStockPrice(stock);};
+everyone.now.distributeTimer = function(timer){everyone.now.recieveTimer(timer);};
+
+
+var future = +new Date()/1000 + 3601;
+var time;
+function time_loop() {
+    var sec = 1000,
+        minute = sec*60,
+        hour = minute*60,
+        day = hour*24,
+        d = +new Date(),
+        remaining = (future - ~~(d/sec))*sec,
+        days_left = ~~(remaining/day),
+        hours_left, minutes_left, seconds_left;
+
+    remaining -= days_left*day,
+        hours_left = ~~(remaining/hour),
+        remaining -= hours_left*hour,
+        minutes_left = ~~(remaining/minute),
+        remaining -= minutes_left*minute,
+        seconds_left = ~~(remaining/sec);
+
+    time = hours_left + ':' + minutes_left + ':' + seconds_left;
+    everyone.now.distributeTimer(time);
+}
+var timer = setInterval(time_loop, 1000);
+
 
 // Routes
 app.get("/", function(req, res){
-    res.render('index');
+    res.render('index', { timer: time });
 });
 
 app.get("/stocks", function(req, res){
