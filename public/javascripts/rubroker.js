@@ -99,8 +99,11 @@
                 if (price > item.price()){
                     item.priceChange(1);
                 }
-                if (price < item.price()){
+                else if (price < item.price()){
                     item.priceChange(-1);
+                }
+                else if (price == item.price()) {
+                    item.priceChange(0);
                 }
                 item.price(price);
             }
