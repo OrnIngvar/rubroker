@@ -48,7 +48,7 @@ everyone.now.updateStockPrice = function(name, price){
 everyone.now.distributeTimer = function(timer){everyone.now.recieveTimer(timer);};
 
 
-var future = +new Date()/1000 + 3601;
+var future = +new Date()/1000 + 3600;
 var time;
 function time_loop() {
     var sec = 1000,
@@ -72,6 +72,57 @@ function time_loop() {
 }
 var timer = setInterval(time_loop, 1000);
 
+function nextRandomNumber(){
+    var hi = this.seed / this.Q;
+    var lo = this.seed % this.Q;
+    var test = this.A * lo - this.R * hi;
+    if(test > 0){
+        this.seed = test;
+    } else {
+        this.seed = test + this.M;
+    }
+    return (this.seed * this.oneOverM);
+}
+
+function RandomNumberGenerator(){
+    var d = new Date();
+    this.seed = 2345678901 + (d.getSeconds() * 0xFFFFFF) + (d.getMinutes() * 0xFFFF);
+    this.A = 48271;
+    this.M = 2147483647;
+    this.Q = this.M / this.A;
+    this.R = this.M % this.A;
+    this.oneOverM = 1.0 / this.M;
+    this.next = nextRandomNumber;
+    return this;
+}
+
+function createRandomNumber(Min, Max){
+    var rand = new RandomNumberGenerator();
+    return Math.round((Max-Min) * rand.next() + Min);
+}
+
+function stock_bot() {
+    var oldPrice = 0;
+    //Pick the stock to change
+    var rand_stock = createRandomNumber(0,2);
+    //Set price percentage change
+    var rand_price = createRandomNumber(5,50);
+    //Up = 1, down = 0
+    var rand_dir = createRandomNumber(0,1);
+    if (rand_dir===1){
+        console.log('price going up');
+        oldPrice = stocks[rand_stock].price;
+        stocks[rand_stock].price = Math.round( oldPrice * ( 1 + ( rand_price/100 ) ) );
+        everyone.now.updateStockPrice(stocks[rand_stock].name, stocks[rand_stock].price);
+    }else{
+        console.log('price going down');
+        oldPrice = stocks[rand_stock].price;
+        stocks[rand_stock].price = Math.round(oldPrice * (1 - (rand_price/100) ));
+        everyone.now.updateStockPrice(stocks[rand_stock].name, stocks[rand_stock].price);
+    }
+}
+var bot = setInterval(stock_bot, 120000);
+
 var stocks = [
     { name: 'CRM', price: '45', numowned: 0, isOwned: false },
     { name: 'MSFT', price: '25', numowned: 0, isOwned: false },
@@ -85,26 +136,11 @@ app.get("/", function(req, res){
 
 app.get("/stocks", function(req, res){
 
-    // We want to set the content-type header so that the browser understands
-    //  the content of the response.
     res.contentType('application/json');
-
-    // Since the request is for a JSON representation of the people, we
-    //  should JSON serialize them. The built-in JSON.stringify() function
-    //  does that.
     var stockJSON = JSON.stringify(stocks);
-
-    // Now, we can use the response object's send method to push that string
-    //  of people JSON back to the browser in response to this request:
 //    console.log('stockJSON ', stockJSON);
     res.send(stockJSON);
 });
-
-//TODO: Post operation
-//app.post('/stocks', function(req, res){
-//    console.log('user ', req.body.user);
-//    res.redirect('back');
-//});
 
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
