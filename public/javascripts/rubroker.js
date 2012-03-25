@@ -90,8 +90,6 @@
     var stockApp = new StockListViewModel();
     ko.applyBindings(stockApp);
 
-    now.name = prompt("What's your name?", "");
-
     now.recieveNewStockPrice = function (name, price) {
         console.log('name ' + name + 'price ' + price);
         ko.utils.arrayForEach(stockApp.stocks(), function(item){
@@ -111,15 +109,5 @@
             console.log(item.price());
         });
     };
-
-    now.receiveMessage = function (name, message) {
-        $("#messages").append("<br>" + name + ": " + message);
-    };
-
-    $("#send-button").click(function () {
-        console.log($("#msg-input").val());
-        now.distributeMessage($("#msg-input").val());
-        $("#msg-input").val("");
-    });
 
 })();
