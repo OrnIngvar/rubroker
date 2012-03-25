@@ -14,3 +14,10 @@ a {
     font-weight:bold;
     border-right-color:#FFFFFF
 }
+
+.down {
+    color: red;
+}
+.up {
+    color: green;
+}

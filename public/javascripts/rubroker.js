@@ -15,7 +15,7 @@
         self.credit = ko.observable(1000);
         self.numBought = ko.observable();
         self.numSell = ko.observable();
-        self.newcredit = ko.computed(function() {
+        self.newTotal = ko.computed(function() {
             ko.utils.arrayForEach(self.stocksOwned(), function(item){
                 item.total(item.numowned() * item.price());
             });

@@ -6,12 +6,14 @@ h3 Stocks
 
 ul(data-bind='foreach: stocks, visible: stocks().length > 0')
   li
-    | Name:
+    |  Name:
     span(data-bind='text: name')
     |  Price:
     span(data-bind='text: price')
     input#text-input(type='text', data-bind='value: $parent.numBought')
     input#buy-button(type='button', data-bind='click: $parent.buyStock', value='Buy')
+    span.up(data-bind='visible: priceChange() == 1') Price is going up
+    pan.down(data-bind='visible: priceChange() == -1') Price is Going Down
 | You have
 b(data-bind='text: stocksOwned().length')  
 |  stock type(s) and
