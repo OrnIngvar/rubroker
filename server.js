@@ -40,6 +40,14 @@ everyone.now.distributeMessage = function(message){everyone.now.receiveMessage(t
 everyone.now.updateStockPrice = function(name, price){
     for(var i=0;i<stocks.length;i++){
         if (stocks[i].name === name){
+            if(stocks[i].price < price){
+                stocks[i].priceChange = 1;
+            }
+            else if(stocks[i].price > price){
+                stocks[i].priceChange = -1;
+            }else{
+                stocks[i].priceChange = 0;
+            }
             stocks[i].price = price;
         }
     }
