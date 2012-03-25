@@ -28,7 +28,7 @@
             var numBought = parseInt(self.numBought());
             var oldPrice = parseInt(stock.price());
             var newCredit = self.credit() - (numBought * oldPrice);
-            var newPrice = oldPrice * ( 1 + (Math.pow(numBought,2)/100));
+            var newPrice = Math.round(oldPrice * ( 1 + (Math.pow(numBought,2)/100)));
             if (newCredit >= 0) {
                 //stock.price(newPrice);
                 self.credit(newCredit);
@@ -50,7 +50,7 @@
             var numSell = parseInt(self.numSell());
             var oldPrice = parseInt(stock.price());
             var newCredit = self.credit() + (numSell * oldPrice);
-            var newPrice = oldPrice / ( 1 + (Math.pow(numSell,2)/100));
+            var newPrice = Math.round(oldPrice / ( 1 + (Math.pow(numSell,2)/100)));
             if (prevNumowned >= numSell) {
                 //stock.price(newPrice);
                 now.updateStockPrice(stock.name(), newPrice);
