@@ -101,15 +101,16 @@
             console.log(item.name());
             console.log(item.price());
         });
-    }
+    };
 
     now.receiveMessage = function (name, message) {
         $("#messages").append("<br>" + name + ": " + message);
-    }
+    };
 
-    $("#buy-button").click(function () {
-        now.distributeMessage($("#text-input").val());
-        $("#text-input").val("");
+    $("#send-button").click(function () {
+        console.log($("#msg-input").val());
+        now.distributeMessage($("#msg-input").val());
+        $("#msg-input").val("");
     });
 
 })();
