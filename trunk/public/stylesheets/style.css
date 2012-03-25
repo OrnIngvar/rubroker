@@ -6,3 +6,11 @@ body {
 a {
     color: #00B7FF;
 }
+
+#txt {
+    border:none;
+    font-family:verdana;
+    font-size:16pt;
+    font-weight:bold;
+    border-right-color:#FFFFFF
+}

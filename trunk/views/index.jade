@@ -1,6 +1,6 @@
 h1 ru
 p Welcome to ruBroker, a stock based game
-
+#timer
 h3 Stocks
 
 ul(data-bind='foreach: stocks, visible: stocks().length > 0')
@@ -34,3 +34,4 @@ ul(data-bind='foreach: stocksOwned, visible: stocksOwned().length > 0')
   input#send-button(type='button', value='Send')
 
 script(type='text/javascript', src='/javascripts/rubroker.js')
+script(type='text/javascript', src='/javascripts/timer.js')
