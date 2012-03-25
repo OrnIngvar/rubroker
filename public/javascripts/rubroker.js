@@ -52,7 +52,8 @@
             var newCredit = self.credit() + (numSell * oldPrice);
             var newPrice = oldPrice / ( 1 + (Math.pow(numSell,2)/100));
             if (prevNumowned >= numSell) {
-                stock.price(newPrice);
+                //stock.price(newPrice);
+                now.updateStockPrice(stock.name(), newPrice);
                 self.credit(newCredit);
                 stock.numowned(prevNumowned - numSell);
                 var result = self.stocksOwned.indexOf(stock);
