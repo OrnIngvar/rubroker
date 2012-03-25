@@ -36,6 +36,7 @@ everyone.disconnected(function(){
 });
 
 everyone.now.distributeMessage = function(message){everyone.now.receiveMessage(this.now.name, message);};
+
 everyone.now.updateStockPrice = function(name, price){
     for(var i=0;i<stocks.length;i++){
         if (stocks[i].name === name){
@@ -95,15 +96,15 @@ app.get("/stocks", function(req, res){
 
     // Now, we can use the response object's send method to push that string
     //  of people JSON back to the browser in response to this request:
-    console.log('stockJSON ', stockJSON);
+//    console.log('stockJSON ', stockJSON);
     res.send(stockJSON);
 });
 
 //TODO: Post operation
-app.post('/stocks', function(req, res){
-    console.log('user ', req.body.user);
-    res.redirect('back');
-});
+//app.post('/stocks', function(req, res){
+//    console.log('user ', req.body.user);
+//    res.redirect('back');
+//});
 
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

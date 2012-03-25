@@ -32,7 +32,7 @@ ul(data-bind='foreach: stocksOwned, visible: stocksOwned().length > 0')
     input#sell-button(type='button', data-bind='click: $parent.sellStock', value='Sell')
 h3 Chat
 #messages
-  input#text-input(type='text')
+  input#msg-input(type='text')
   input#send-button(type='button', value='Send')
 
 script(type='text/javascript', src='/javascripts/rubroker.js')
