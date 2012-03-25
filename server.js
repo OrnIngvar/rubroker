@@ -85,7 +85,7 @@ function find_winner(){
     everyone.now.sendWinner(player);
     clearInterval(winner);
 }
-var winner = setInterval(find_winner,370000);
+var winner = setInterval(find_winner,360500);
 
 var future = +new Date()/1000 + 3600;
 var time;
