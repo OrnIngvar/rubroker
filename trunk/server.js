@@ -76,7 +76,13 @@ function time_loop() {
         seconds_left = ~~(remaining/sec);
 
     time = hours_left + ':' + minutes_left + ':' + seconds_left;
-    everyone.now.distributeTimer(time);
+    if( hours_left === 0 && minutes_left === 0 && seconds_left === 0){
+        //Stop the timer when it goes down to zero
+        clearInterval(timer);
+        //TODO : Gather all player sumTotals and compare
+    }else{
+        everyone.now.distributeTimer(time);
+    }
 }
 var timer = setInterval(time_loop, 1000);
 
@@ -110,6 +116,7 @@ function createRandomNumber(Min, Max){
 }
 
 function stock_bot() {
+    console.log('stock bot is in play');
     var oldPrice = 0;
     //Pick the stock to change
     var rand_stock = createRandomNumber(0,2);
@@ -118,12 +125,12 @@ function stock_bot() {
     //Up = 1, down = 0
     var rand_dir = createRandomNumber(0,1);
     if (rand_dir===1){
-        console.log('price going up');
+        console.log('price going up for ', stocks[rand_stock].name);
         oldPrice = stocks[rand_stock].price;
         stocks[rand_stock].price = Math.round( oldPrice * ( 1 + ( rand_price/100 ) ) );
         everyone.now.updateStockPrice(stocks[rand_stock].name, stocks[rand_stock].price);
     }else{
-        console.log('price going down');
+        console.log('price going down for ', stocks[rand_stock].name);
         oldPrice = stocks[rand_stock].price;
         stocks[rand_stock].price = Math.round(oldPrice * (1 - (rand_price/100) ));
         everyone.now.updateStockPrice(stocks[rand_stock].name, stocks[rand_stock].price);
@@ -143,7 +150,6 @@ app.get("/", function(req, res){
 });
 
 app.get("/stocks", function(req, res){
-
     res.contentType('application/json');
     var stockJSON = JSON.stringify(stocks);
 //    console.log('stockJSON ', stockJSON);

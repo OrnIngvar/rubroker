@@ -20,6 +20,13 @@
                 item.total(item.numowned() * item.price());
             });
         });
+        self.sumTotal = ko.computed(function() {
+            var total = 0;
+            ko.utils.arrayForEach(self.stocksOwned(), function(item){
+                total += item.total();
+            });
+            return total;
+        });
 
         // Operations
         self.buyStock = function (stock) {
@@ -75,17 +82,6 @@
             });
             self.stocks(mappedStocks);
         });
-
-        self.save = function() {
-            amplify.store("stocks", self.stocks);
-            /*
-             $.ajax("/stocks", {
-             data: ko.toJSON({ stocks: self.stocks }),
-             type: "post", contentType: "application/json",
-             success: function(result) { alert(result) }
-             });
-             */
-        };
     }
     var stockApp = new StockListViewModel();
     ko.applyBindings(stockApp);
