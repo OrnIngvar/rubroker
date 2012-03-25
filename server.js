@@ -124,9 +124,9 @@ function stock_bot() {
 var bot = setInterval(stock_bot, 120000);
 
 var stocks = [
-    { name: 'CRM', price: '45', numowned: 0, isOwned: false },
-    { name: 'MSFT', price: '25', numowned: 0, isOwned: false },
-    { name: 'ORCL', price: '15', numowned: 0, isOwned: false }
+    { name: 'CRM', price: '45', numowned: 0, priceChange: 0 },
+    { name: 'MSFT', price: '25', numowned: 0, priceChange: 0 },
+    { name: 'ORCL', price: '15', numowned: 0, priceChange: 0 }
 ];
 
 // Routes

@@ -3,7 +3,7 @@
         this.name = ko.observable(data.name);
         this.price = ko.observable(data.price);
         this.numowned = ko.observable(data.numowned);
-        this.isOwned = ko.observable(data.isOwned);
+        this.priceChange = ko.observable(data.priceChange);
         this.total = ko.observable(data.total);
     }
 
@@ -96,6 +96,12 @@
         console.log('name ' + name + 'price ' + price);
         ko.utils.arrayForEach(stockApp.stocks(), function(item){
             if (item.name() == name) {
+                if (price > item.price()){
+                    item.priceChange(1);
+                }
+                if (price < item.price()){
+                    item.priceChange(-1);
+                }
                 item.price(price);
             }
             console.log(item.name());
